@@ -1,0 +1,5 @@
+{
+  "APIKEY": "da0deac735c63b6c3fecdd3aa1ac41c2",
+  "GETEXAMPLE": "https://api.themoviedb.org/3/movie/550?api_key=da0deac735c63b6c3fecdd3aa1ac41c2",
+  "TOKEN": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYTBkZWFjNzM1YzYzYjZjM2ZlY2RkM2FhMWFjNDFjMiIsInN1YiI6IjYyMmU4MjkzNjVjMjZjMDA0OTA2OWRlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IyAmLJg04teMDb-9HwnDrEuQN4Oa_mgeGHjtKwL1YZ8"
+}
