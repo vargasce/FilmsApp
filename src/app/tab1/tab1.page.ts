@@ -10,22 +10,37 @@ import { Pelicula } from '../interfaces/index';
 export class Tab1Page implements OnInit {
 
     public peliculasRecientes: Pelicula[] = [];
-    public slidesOPT = {
-        slidesPerView: 1.1,
-        freeMode: true
-    }
+    public populares: Pelicula[] = [];
 
     constructor(
         private _moviesService: MoviesService
     ) {}
 
     public ngOnInit(): void {
+        this.getPeliculas();
+        this.getPopulares();
+    }
+
+    private getPeliculas(){
         this._moviesService.getFeature().subscribe(
             Response => {
                 this.peliculasRecientes = Response.results;
-                console.log(this.peliculasRecientes);
             },
             Error => {
+                this.peliculasRecientes = [];
+                console.log( Error );
+            }
+        );
+    }
+
+    private getPopulares(){
+        this._moviesService.getPopulares().subscribe(
+            Response => {
+                console.log( Response );
+                this.populares = Response.results;
+            },
+            Error => {
+                this.populares = [];
                 console.log( Error );
             }
         );
