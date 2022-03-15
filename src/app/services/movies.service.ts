@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ResponseMDBAPI } from '../interfaces';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { ResponseAPIPageMoviesDetalle } from '../interfaces/IDetalle';
+import { ResponseAPIPageMoviesCredits } from '../interfaces/ICredits';
+import { ResponseMDBAPI } from '../interfaces';
 
 const URL = environment.url;
 const apiKey = environment.apiKey;  
@@ -11,6 +14,8 @@ const apiKey = environment.apiKey;
 })
 export class MoviesService {
 
+    private popularesPage: number = 0;
+
     constructor(
         private _http: HttpClient
     ) {  } 
@@ -18,7 +23,6 @@ export class MoviesService {
     private executeQuery<T>( query: string ){
         query = URL + query;
         query += `&api_key=${apiKey}&language=es&include_image_language=es`;
-        console.log( query );
         return this._http.get<T>( query );
     }
 
@@ -40,8 +44,19 @@ export class MoviesService {
     }
 
     getPopulares(){
-        const query = `/discover/movie?sort_by=popularity.desc`;
+        this.popularesPage++;
+
+        const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
         return this.executeQuery<ResponseMDBAPI>( query );
     }
+
+    getPeliculaDetalle( id: string ):Observable<ResponseAPIPageMoviesDetalle>{
+        return this.executeQuery<ResponseAPIPageMoviesDetalle>(`/movie/${id}?non=1`);
+    }
+
+    getActoresPelicula( id: string ):Observable<ResponseAPIPageMoviesCredits>{
+        return this.executeQuery<ResponseAPIPageMoviesCredits>(`/movie/${id}/credits?non=1`);
+    }
+
 
 }

@@ -34,9 +34,10 @@
         </ion-row>
     </ion-grid>
 
-    <app-slideshow-poster
+    <app-slideshow-pares
         [data]="populares"
-    ></app-slideshow-poster>
+        (cargarMas)="cargarMas()"
+    ></app-slideshow-pares>
 
 
 </ion-content>

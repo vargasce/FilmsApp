@@ -1,0 +1,50 @@
+
+export interface ResponseAPIPageMoviesCredits {
+    id:   number;
+    cast: Cast[];
+    crew: Cast[];
+}
+
+export interface Cast {
+    adult:                boolean;
+    gender:               number;
+    id:                   number;
+    known_for_department: Department;
+    name:                 string;
+    original_name:        string;
+    popularity:           number;
+    profile_path:         null | string;
+    cast_id?:             number;
+    character?:           string;
+    credit_id:            string;
+    order?:               number;
+    department?:          Department;
+    job?:                 string;
+}
+
+export enum Department {
+    Acting = "Acting",
+    Art = "Art",
+    Camera = "Camera",
+    CostumeMakeUp = "Costume & Make-Up",
+    Creator = "Creator",
+    Crew = "Crew",
+    Directing = "Directing",
+    Editing = "Editing",
+    Lighting = "Lighting",
+    Production = "Production",
+    Sound = "Sound",
+    VisualEffects = "Visual Effects",
+    Writing = "Writing",
+}
+
+// Converts JSON strings to/from your types
+export class Convert {
+    public static toResponseAPIPageMoviesCredits(json: string): ResponseAPIPageMoviesCredits {
+        return JSON.parse(json);
+    }
+
+    public static responseAPIPageMoviesCreditsToJson(value: ResponseAPIPageMoviesCredits): string {
+        return JSON.stringify(value);
+    }
+}

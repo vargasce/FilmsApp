@@ -36,14 +36,17 @@ export class Tab1Page implements OnInit {
     private getPopulares(){
         this._moviesService.getPopulares().subscribe(
             Response => {
-                console.log( Response );
-                this.populares = Response.results;
+                this.populares = [ ...this.populares, ...Response.results ];
             },
             Error => {
                 this.populares = [];
                 console.log( Error );
             }
         );
+    }
+
+    public cargarMas(){
+        this.getPopulares();
     }
 
 }
