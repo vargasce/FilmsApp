@@ -18,6 +18,7 @@ export class DetalleComponent implements OnInit {
     public credits: ResponseAPIPageMoviesCredits;
     public actores: Cast[] = [];
     public lengthText: number = 150;
+    public existe: boolean = false;
 
     public slideOptPoster = {
         slidesPerView: 3.2,
@@ -32,9 +33,10 @@ export class DetalleComponent implements OnInit {
         private toastMsg: ToastController
     ) { }
 
-    ngOnInit() {
+    public async ngOnInit() {
         this.getPelicula();
         this.getCreditos();
+        this.existe = await this._DataLocalService.existePelicula( this.id );
     }
 
     public getPelicula(){
@@ -65,6 +67,7 @@ export class DetalleComponent implements OnInit {
     }
 
     public guardarFavorito(){
+        this.existe = !this.existe; //Esto es de otro planeta.
         let msg: string = this._DataLocalService.guardarPelicula( this.detalle );
         this.presentToast( msg );
     }

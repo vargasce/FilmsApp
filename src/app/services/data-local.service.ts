@@ -14,6 +14,7 @@ export class DataLocalService {
         private _storageService: Storage
     ) { 
         this.init();
+        this.cargarFavoritos();
     }
 
     public async init(){
@@ -46,6 +47,22 @@ export class DataLocalService {
         console.log( this.peliculas );
 
         return mensaje;
+    }
+
+    public async cargarFavoritos():Promise<ResponseAPIPageMoviesDetalle[]>{
+
+        const peliculas = await this._storageService.get('peliculas');
+        this.peliculas = peliculas || [];
+
+        return this.peliculas;
+    }
+
+    public async existePelicula( id: string ):Promise<boolean>{
+
+        await this.cargarFavoritos();
+        const existe = this.peliculas.find( peli => peli.id === Number(id) );
+
+        return existe ? true : false;
     }
 
 }
