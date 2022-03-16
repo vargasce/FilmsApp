@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { ResponseAPIPageMoviesDetalle } from '../interfaces/IDetalle';
 import { ResponseAPIPageMoviesCredits } from '../interfaces/ICredits';
+import { ResponseAPIPageMoviesSearch } from '../interfaces/ISearch';
 import { ResponseMDBAPI } from '../interfaces';
 
 const URL = environment.url;
@@ -43,19 +44,25 @@ export class MoviesService {
         return this.executeQuery<ResponseMDBAPI>(`/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`);
     }
 
-    getPopulares(){
+    public getPopulares(){
         this.popularesPage++;
 
         const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
         return this.executeQuery<ResponseMDBAPI>( query );
     }
 
-    getPeliculaDetalle( id: string ):Observable<ResponseAPIPageMoviesDetalle>{
+    public getPeliculaDetalle( id: string ):Observable<ResponseAPIPageMoviesDetalle>{
         return this.executeQuery<ResponseAPIPageMoviesDetalle>(`/movie/${id}?non=1`);
     }
 
-    getActoresPelicula( id: string ):Observable<ResponseAPIPageMoviesCredits>{
+    public getActoresPelicula( id: string ):Observable<ResponseAPIPageMoviesCredits>{
         return this.executeQuery<ResponseAPIPageMoviesCredits>(`/movie/${id}/credits?non=1`);
+    }
+
+
+    public getPeliculasById( texto: string ):Observable<ResponseMDBAPI>{
+        const query = `/search/movie?query=${texto}`;
+        return this.executeQuery<ResponseMDBAPI>( query );
     }
 
 
